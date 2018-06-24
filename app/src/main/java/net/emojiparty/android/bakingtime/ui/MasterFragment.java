@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.data.Recipe;
-import net.emojiparty.android.bakingtime.data.RecipePresenter;
+import net.emojiparty.android.bakingtime.data.RecipeMasterPresenter;
 
 public class MasterFragment extends Fragment {
   private RecipeDetailViewModel detailViewModel;
@@ -48,11 +48,11 @@ public class MasterFragment extends Fragment {
     });
   }
 
-  private List<RecipePresenter> mapRecipesToPresenters(List<Recipe> recipes) {
-    List<RecipePresenter> presenters = new ArrayList<>();
+  private List<RecipeMasterPresenter> mapRecipesToPresenters(List<Recipe> recipes) {
+    List<RecipeMasterPresenter> presenters = new ArrayList<>();
     for (int i = 0; i < recipes.size(); i++) {
       Recipe recipe = recipes.get(i);
-      presenters.add(new RecipePresenter(recipe, detailViewModel, onRecipeClicked));
+      presenters.add(new RecipeMasterPresenter(recipe, detailViewModel, onRecipeClicked));
     }
     return presenters;
   }

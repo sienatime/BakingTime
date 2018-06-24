@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.data.Recipe;
 import net.emojiparty.android.bakingtime.BR;
+import net.emojiparty.android.bakingtime.data.RecipeDetailPresenter;
 
 public class DetailFragment extends Fragment {
   @Nullable @Override
@@ -22,13 +23,17 @@ public class DetailFragment extends Fragment {
 
     final ViewDataBinding binding =
         DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false);
-    binding.setVariable(BR.presenter, new Recipe());
+    String packageName = getActivity().getPackageName();
+    final RecipeDetailPresenter presenter =
+        new RecipeDetailPresenter(new Recipe(), getResources(), packageName);
+    binding.setVariable(BR.presenter, presenter);
 
-    RecipeDetailViewModel detailViewModel = ViewModelProviders.of(getActivity()).get(RecipeDetailViewModel.class);
+    RecipeDetailViewModel detailViewModel =
+        ViewModelProviders.of(getActivity()).get(RecipeDetailViewModel.class);
     detailViewModel.getSelected().observe(this, new Observer<Recipe>() {
       @Override public void onChanged(@Nullable Recipe recipe) {
-        binding.setVariable(BR.presenter, recipe);
-        binding.executePendingBindings();
+        presenter.setRecipe(recipe);
+        binding.notifyChange();
       }
     });
 

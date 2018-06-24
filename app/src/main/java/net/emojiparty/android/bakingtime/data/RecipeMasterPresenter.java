@@ -4,13 +4,12 @@ import android.support.annotation.Nullable;
 import net.emojiparty.android.bakingtime.ui.RecipeDetailViewModel;
 import net.emojiparty.android.bakingtime.ui.RecipesActivity;
 
-public class RecipePresenter {
+public class RecipeMasterPresenter {
   private Recipe recipe;
   private RecipeDetailViewModel recipeDetailViewModel;
-  @Nullable
-  private RecipesActivity.OnRecipeClicked onRecipeClicked;
+  @Nullable private RecipesActivity.OnRecipeClicked onRecipeClicked;
 
-  public RecipePresenter(Recipe recipe, RecipeDetailViewModel recipeDetailViewModel,
+  public RecipeMasterPresenter(Recipe recipe, RecipeDetailViewModel recipeDetailViewModel,
       RecipesActivity.OnRecipeClicked onRecipeClicked) {
     this.recipe = recipe;
     this.recipeDetailViewModel = recipeDetailViewModel;

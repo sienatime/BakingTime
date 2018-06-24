@@ -1,4 +1,28 @@
 <resources>
   <string name="app_name">Baking Time</string>
   <string name="servings">Serves: %d</string>
+  <string name="ingredient_format">%1$s %2$s %3$s</string>
+  <string name="ingredient_format_no_measure">%1$s %2$s</string>
+  <string name="ingredients">Ingredients</string>
+  <string name="steps">Steps</string>
+
+  <plurals name="CUP">
+    <item quantity="one">cup</item>
+    <item quantity="other">cups</item>
+  </plurals>
+  <plurals name="TBLSP">
+    <item quantity="other">Tbsp</item>
+  </plurals>
+  <plurals name="TSP">
+    <item quantity="other">tsp</item>
+  </plurals>
+  <plurals name="G">
+    <item quantity="other">g</item>
+  </plurals>
+  <plurals name="OZ">
+    <item quantity="other">oz</item>
+  </plurals>
+  <plurals name="K">
+    <item quantity="other">kg</item>
+  </plurals>
 </resources>

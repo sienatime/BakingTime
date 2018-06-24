@@ -1,18 +1,18 @@
 package net.emojiparty.android.bakingtime.data;
 
 class Ingredient {
-  private float quantity;
+  private double quantity;
   private String measure;
   private String ingredient;
 
   public Ingredient() {
   }
 
-  public float getQuantity() {
+  public double getQuantity() {
     return quantity;
   }
 
-  public void setQuantity(float quantity) {
+  public void setQuantity(double quantity) {
     this.quantity = quantity;
   }
 
