@@ -14,16 +14,41 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/recipe_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        imageUrl="@{presenter.image}"
+        />
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/recipe_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@{presenter.name}"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@id/recipe_image"
         app:layout_constraintTop_toTopOf="parent"
+        tools:text="Brownies"
+        />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:text="@{@string/servings(presenter.servings)}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/recipe_name"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_name"
+        tools:text="Servings: 8"
         />
   </android.support.constraint.ConstraintLayout>
 </layout>
