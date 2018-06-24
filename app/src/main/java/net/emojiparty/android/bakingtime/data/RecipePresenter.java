@@ -1,21 +1,20 @@
 package net.emojiparty.android.bakingtime.data;
 
-import android.support.v4.app.FragmentManager;
-import net.emojiparty.android.bakingtime.R;
-import net.emojiparty.android.bakingtime.ui.DetailFragment;
+import android.support.annotation.Nullable;
 import net.emojiparty.android.bakingtime.ui.RecipeDetailViewModel;
-
+import net.emojiparty.android.bakingtime.ui.RecipesActivity;
 
 public class RecipePresenter {
   private Recipe recipe;
   private RecipeDetailViewModel recipeDetailViewModel;
-  private FragmentManager fragmentManager;
+  @Nullable
+  private RecipesActivity.OnRecipeClicked onRecipeClicked;
 
   public RecipePresenter(Recipe recipe, RecipeDetailViewModel recipeDetailViewModel,
-      FragmentManager fragmentManager) {
+      RecipesActivity.OnRecipeClicked onRecipeClicked) {
     this.recipe = recipe;
     this.recipeDetailViewModel = recipeDetailViewModel;
-    this.fragmentManager = fragmentManager;
+    this.onRecipeClicked = onRecipeClicked;
   }
 
   public Recipe getRecipe() {
@@ -24,8 +23,8 @@ public class RecipePresenter {
 
   public void onRecipeClicked() {
     recipeDetailViewModel.select(recipe);
-    fragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, new DetailFragment())
-        .commit();
+    if (onRecipeClicked != null) {
+      onRecipeClicked.onClick();
+    }
   }
 }

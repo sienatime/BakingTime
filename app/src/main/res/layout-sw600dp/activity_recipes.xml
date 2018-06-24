@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.RecipesActivity"
+    android:orientation="horizontal"
+    >
+
+  <fragment
+      android:id="@+id/master_fragment"
+      android:name="net.emojiparty.android.bakingtime.ui.MasterFragment"
+      android:layout_width="400dp"
+      android:layout_height="match_parent"/>
+
+  <fragment
+      android:id="@+id/detail_fragment"
+      android:name="net.emojiparty.android.bakingtime.ui.DetailFragment"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"/>
+
+</LinearLayout>
