@@ -1,12 +1,13 @@
 package net.emojiparty.android.bakingtime.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
   private int id;
   private String name;
-  private List<Ingredient> ingredients;
-  private List<Step> steps;
+  private List<Ingredient> ingredients = new ArrayList<>();
+  private List<Step> steps = new ArrayList<>();
   private int servings;
   private String image;
 

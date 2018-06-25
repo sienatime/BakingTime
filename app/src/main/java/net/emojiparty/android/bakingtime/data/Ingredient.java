@@ -1,6 +1,6 @@
 package net.emojiparty.android.bakingtime.data;
 
-class Ingredient {
+public class Ingredient {
   private double quantity;
   private String measure;
   private String ingredient;

@@ -1,6 +1,6 @@
 package net.emojiparty.android.bakingtime.data;
 
-class Step {
+public class Step {
   private int id;
   private String shortDescription;
   private String videoURL;

@@ -7,7 +7,7 @@
   <data>
     <variable
         name="presenter"
-        type="net.emojiparty.android.bakingtime.data.RecipeDetailPresenter"
+        type="net.emojiparty.android.bakingtime.ui.RecipeDetailViewModel"
         />
   </data>
 
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:text="@{presenter.recipe.name}"
+        android:text="@{presenter.selected.name}"
         android:textSize="36sp"
         tools:text="Nutella Pie"
         />
@@ -35,7 +35,7 @@
         android:paddingBottom="0dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:text="@{@string/servings(presenter.recipe.servings)}"
+        android:text="@{@string/servings(presenter.selected.servings)}"
         android:textSize="18sp"
         tools:text="Serves: 8"
         />
@@ -52,7 +52,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="18sp"
-        android:text="@{presenter.allIngredients}"
+        android:text="@{presenter.allIngredients(presenter.selected)}"
         tools:text="5 Tbsp vanilla\n1 kg Nutella"
         />
 

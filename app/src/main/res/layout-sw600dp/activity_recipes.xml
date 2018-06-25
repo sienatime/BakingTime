@@ -11,13 +11,15 @@
   <fragment
       android:id="@+id/master_fragment"
       android:name="net.emojiparty.android.bakingtime.ui.MasterFragment"
-      android:layout_width="400dp"
+      android:layout_weight="1"
+      android:layout_width="0dp"
       android:layout_height="match_parent"/>
 
   <fragment
       android:id="@+id/detail_fragment"
       android:name="net.emojiparty.android.bakingtime.ui.DetailFragment"
-      android:layout_width="wrap_content"
+      android:layout_weight="2"
+      android:layout_width="0dp"
       android:layout_height="match_parent"/>
 
 </LinearLayout>
