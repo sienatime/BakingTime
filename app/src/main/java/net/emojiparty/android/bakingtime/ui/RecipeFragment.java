@@ -41,6 +41,7 @@ public class RecipeFragment extends Fragment {
 
   private void setupStepsRecyclerView() {
     RecyclerView stepsRecyclerView = root.findViewById(R.id.steps_recycler_view);
+    stepsRecyclerView.setNestedScrollingEnabled(false);
     final DataBindingAdapter adapter = new DataBindingAdapter(R.layout.list_item_step);
     stepsRecyclerView.setAdapter(adapter);
 
