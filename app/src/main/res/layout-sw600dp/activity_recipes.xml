@@ -10,14 +10,14 @@
 
   <fragment
       android:id="@+id/master_fragment"
-      android:name="net.emojiparty.android.bakingtime.ui.MasterFragment"
+      android:name="net.emojiparty.android.bakingtime.ui.RecipeListFragment"
       android:layout_weight="1"
       android:layout_width="0dp"
       android:layout_height="match_parent"/>
 
   <fragment
       android:id="@+id/detail_fragment"
-      android:name="net.emojiparty.android.bakingtime.ui.DetailFragment"
+      android:name="net.emojiparty.android.bakingtime.ui.RecipeFragment"
       android:layout_weight="2"
       android:layout_width="0dp"
       android:layout_height="match_parent"/>

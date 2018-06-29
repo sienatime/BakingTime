@@ -12,19 +12,20 @@ public class RecipesActivity extends AppCompatActivity {
     setContentView(R.layout.activity_recipes);
 
     if (findViewById(R.id.fragment_container) != null) {
-      MasterFragment masterFragment = new MasterFragment();
-      masterFragment.setOnRecipeClicked(new OnRecipeClicked() {
+      RecipeListFragment recipeListFragment = new RecipeListFragment();
+      recipeListFragment.setOnRecipeClicked(new OnRecipeClicked() {
         @Override public void onClick() {
-          replaceFragment(new DetailFragment());
+          replaceFragment(new RecipeFragment());
         }
       });
-      replaceFragment(masterFragment);
+      replaceFragment(recipeListFragment);
     }
   }
 
   private void replaceFragment(Fragment fragment) {
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, fragment)
+        .add(R.id.fragment_container, fragment)
+        .addToBackStack(fragment.getClass().getName())
         .commit();
   }
 

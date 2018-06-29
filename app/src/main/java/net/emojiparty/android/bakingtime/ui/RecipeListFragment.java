@@ -16,7 +16,7 @@ import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.data.Recipe;
 import net.emojiparty.android.bakingtime.data.RecipeMasterPresenter;
 
-public class MasterFragment extends Fragment {
+public class RecipeListFragment extends Fragment {
   private RecipeDetailViewModel detailViewModel;
   private RecipesActivity.OnRecipeClicked onRecipeClicked;
 
@@ -27,7 +27,7 @@ public class MasterFragment extends Fragment {
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_master, container, false);
+    View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
     detailViewModel = ViewModelProviders.of(getActivity()).get(RecipeDetailViewModel.class);
 
     populateRecipes(view);

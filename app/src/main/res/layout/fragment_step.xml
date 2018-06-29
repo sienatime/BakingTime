@@ -7,7 +7,7 @@
   <data>
     <variable
         name="presenter"
-        type="net.emojiparty.android.bakingtime.ui.RecipeDetailViewModel"
+        type="net.emojiparty.android.bakingtime.data.Step"
         />
   </data>
 
@@ -17,6 +17,7 @@
       android:orientation="vertical"
       android:paddingBottom="16dp"
       android:paddingTop="16dp"
+      android:background="@color/white"
       >
 
     <TextView
@@ -24,41 +25,19 @@
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:text="@{presenter.selected.name}"
+        android:text="@{presenter.shortDescription}"
         android:textSize="36sp"
-        tools:text="Nutella Pie"
+        tools:text="Starting prep"
         />
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="0dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:text="@{@string/servings(presenter.selected.servings)}"
-        android:textSize="18sp"
-        tools:text="Serves: 8"
-        />
-
-    <TextView
-        android:text="@string/ingredients"
-        style="@style/header"
-        />
-
-    <TextView
+        android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lineSpacingExtra="4dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:textSize="18sp"
-        android:text="@{presenter.allIngredients(presenter.selected)}"
-        tools:text="5 Tbsp vanilla\n1 kg Nutella"
-        />
-
-    <TextView
-        android:text="@string/steps"
-        style="@style/header"
+        android:text="@{presenter.description}"
+        tools:text="1. Preheat the oven to 350\u00b0F. Butter a 9 inch deep dish pie pan."
         />
 
   </LinearLayout>

@@ -3,6 +3,7 @@ package net.emojiparty.android.bakingtime.data;
 public class Step {
   private int id;
   private String shortDescription;
+  private String description;
   private String videoURL;
   private String thumbnailURL;
 
@@ -23,6 +24,14 @@ public class Step {
 
   public void setShortDescription(String shortDescription) {
     this.shortDescription = shortDescription;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public String getVideoURL() {
