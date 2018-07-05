@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,8 @@ public class RecipeListFragment extends Fragment {
   private void populateRecipes(View view) {
     final DataBindingAdapter adapter = new DataBindingAdapter(R.layout.list_item_recipe);
     RecyclerView recipeRecyclerView = view.findViewById(R.id.recipe_recycler_view);
+    GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+    recipeRecyclerView.setLayoutManager(layoutManager);
     recipeRecyclerView.setAdapter(adapter);
 
     RecipesViewModel allRecipesViewModel = ViewModelProviders.of(this,

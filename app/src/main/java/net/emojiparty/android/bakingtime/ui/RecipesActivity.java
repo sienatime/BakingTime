@@ -23,16 +23,14 @@ public class RecipesActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_recipes);
 
-    if (findViewById(R.id.fragment_container) != null) {
-      RecipeListFragment recipeListFragment = new RecipeListFragment();
-      recipeListFragment.setOnRecipeClicked(new OnRecipeClicked() {
-        @Override public void onClick() {
-          replaceFragment(new RecipeFragment());
-        }
-      });
-      recipeListFragment.setIdlingResource(getIdlingResource());
-      replaceFragment(recipeListFragment);
-    }
+    RecipeListFragment recipeListFragment = new RecipeListFragment();
+    recipeListFragment.setOnRecipeClicked(new OnRecipeClicked() {
+      @Override public void onClick() {
+        replaceFragment(new RecipeFragment());
+      }
+    });
+    recipeListFragment.setIdlingResource(getIdlingResource());
+    replaceFragment(recipeListFragment);
   }
 
   private void replaceFragment(Fragment fragment) {
