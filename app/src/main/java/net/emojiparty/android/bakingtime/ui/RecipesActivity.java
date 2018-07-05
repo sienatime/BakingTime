@@ -1,5 +1,6 @@
 package net.emojiparty.android.bakingtime.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.SimpleIdlingResource;
+import net.emojiparty.android.bakingtime.data.Recipe;
 
 public class RecipesActivity extends AppCompatActivity {
   @Nullable public SimpleIdlingResource idlingResource;
@@ -25,8 +27,11 @@ public class RecipesActivity extends AppCompatActivity {
 
     RecipeListFragment recipeListFragment = new RecipeListFragment();
     recipeListFragment.setOnRecipeClicked(new OnRecipeClicked() {
-      @Override public void onClick() {
-        replaceFragment(new RecipeFragment());
+      @Override public void onClick(Recipe recipe) {
+        //replaceFragment(new RecipeFragment());
+        Intent intent = new Intent(RecipesActivity.this, RecipeDetailActivity.class);
+        intent.putExtra("RECIPE_ID", recipe.getId());
+        RecipesActivity.this.startActivity(intent);
       }
     });
     recipeListFragment.setIdlingResource(getIdlingResource());
@@ -41,6 +46,6 @@ public class RecipesActivity extends AppCompatActivity {
   }
 
   public interface OnRecipeClicked {
-    void onClick();
+    void onClick(Recipe recipe);
   }
 }

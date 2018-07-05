@@ -9,10 +9,11 @@ import java.text.DecimalFormat;
 import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.data.Ingredient;
 import net.emojiparty.android.bakingtime.data.Recipe;
+import net.emojiparty.android.bakingtime.data.RecipeRepository;
 
 // https://developer.android.com/topic/libraries/architecture/viewmodel#sharing
 public class RecipeDetailViewModel extends AndroidViewModel {
-  private MutableLiveData<Recipe> selected = new MutableLiveData<>();
+  private MutableLiveData<Recipe> recipe = new MutableLiveData<>();
   private Resources resources;
   private String packageName;
 
@@ -22,12 +23,14 @@ public class RecipeDetailViewModel extends AndroidViewModel {
     this.packageName = application.getPackageName();
   }
 
-  public MutableLiveData<Recipe> getSelected() {
-    return selected;
+  public MutableLiveData<Recipe> getRecipe() {
+    return recipe;
   }
 
-  public void select(Recipe selected) {
-    this.selected.setValue(selected);
+  // TODO: make a viewmodel factory that takes this as an arg
+  public void loadRecipeById(int id) {
+    Recipe recipe = RecipeRepository.getInstance().getRecipeById(id);
+    this.recipe.setValue(recipe);
   }
 
   // seems weird to pass the livedata? but otherwise it doesn't update

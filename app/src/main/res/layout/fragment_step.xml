@@ -40,6 +40,12 @@
         tools:text="1. Preheat the oven to 350\u00b0F. Butter a 9 inch deep dish pie pan."
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="this is your steps fragment"
+        />
+
   </LinearLayout>
 </layout>
 
