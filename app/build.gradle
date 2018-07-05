@@ -23,19 +23,34 @@ android {
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation 'com.android.support:appcompat-v7:27.1.0'
+
+  def support_library_version = "27.1.1"
+  implementation "com.android.support:appcompat-v7:$support_library_version"
   implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'com.android.support.test:runner:1.0.2'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
   implementation 'com.squareup.retrofit2:retrofit:2.4.0'
   implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
   implementation 'com.google.code.gson:gson:2.8.3'
-  implementation 'com.android.support:recyclerview-v7:27.1.0'
+  implementation "com.android.support:recyclerview-v7:$support_library_version"
   implementation 'com.squareup.picasso:picasso:2.71828'
 
   def lifecycle_version = "1.1.1"
   implementation "android.arch.lifecycle:extensions:$lifecycle_version"
   annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+
+  // Testing-only dependencies
+  testImplementation 'junit:junit:4.12'
+  def espresso_version = "3.0.2"
+  implementation "com.android.support:support-annotations:$support_library_version"
+  androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
+  androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espresso_version"
+  androidTestImplementation 'com.android.support.test:rules:1.0.2'
+  androidTestImplementation 'com.android.support.test:runner:1.0.2'
+  implementation "com.android.support.test.espresso:espresso-idling-resource:$espresso_version"
+  androidTestImplementation("com.android.support.test.espresso:espresso-contrib:$espresso_version") {
+    exclude module: 'support-annotations'
+    exclude module: 'support-v4'
+    exclude module: 'design'
+    exclude module: 'recyclerview-v7'
+  }
 }

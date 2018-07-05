@@ -13,12 +13,19 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 import net.emojiparty.android.bakingtime.R;
+import net.emojiparty.android.bakingtime.SimpleIdlingResource;
 import net.emojiparty.android.bakingtime.data.Recipe;
 import net.emojiparty.android.bakingtime.data.RecipeMasterPresenter;
 
 public class RecipeListFragment extends Fragment {
   private RecipeDetailViewModel detailViewModel;
   private RecipesActivity.OnRecipeClicked onRecipeClicked;
+
+  @Nullable private SimpleIdlingResource idlingResource;
+
+  public void setIdlingResource(@Nullable SimpleIdlingResource idlingResource) {
+    this.idlingResource = idlingResource;
+  }
 
   public void setOnRecipeClicked(RecipesActivity.OnRecipeClicked onRecipeClicked) {
     this.onRecipeClicked = onRecipeClicked;
@@ -40,7 +47,9 @@ public class RecipeListFragment extends Fragment {
     RecyclerView recipeRecyclerView = view.findViewById(R.id.recipe_recycler_view);
     recipeRecyclerView.setAdapter(adapter);
 
-    RecipesViewModel allRecipesViewModel = ViewModelProviders.of(this).get(RecipesViewModel.class);
+    RecipesViewModel allRecipesViewModel = ViewModelProviders.of(this,
+        new RecipesViewModelFactory(getActivity().getApplication(), idlingResource))
+        .get(RecipesViewModel.class);
     allRecipesViewModel.getList().observe(this, new Observer<List<Recipe>>() {
       @Override public void onChanged(@Nullable List<Recipe> recipes) {
         adapter.setItems(mapRecipesToPresenters(recipes));
