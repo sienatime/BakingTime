@@ -8,6 +8,12 @@ public class Ingredient {
   public Ingredient() {
   }
 
+  public Ingredient(double quantity, String measure, String ingredient) {
+    this.quantity = quantity;
+    this.measure = measure;
+    this.ingredient = ingredient;
+  }
+
   public double getQuantity() {
     return quantity;
   }

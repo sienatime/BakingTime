@@ -1,5 +1,6 @@
 package net.emojiparty.android.bakingtime.data;
 
+import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,11 @@ public class RecipeRepository {
   private List<Recipe> recipes = new ArrayList<>();
 
   private RecipeRepository() {
+  }
+
+  @VisibleForTesting
+  public void setRecipes(List<Recipe> recipes) {
+    this.recipes = recipes;
   }
 
   public static RecipeRepository getInstance() {

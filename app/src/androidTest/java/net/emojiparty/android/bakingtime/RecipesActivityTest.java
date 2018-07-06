@@ -43,15 +43,4 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
     onView(withId(R.id.detail_recipe_name)).check(matches(withText("Nutella Pie")));
   }
-
-  @Test public void clickingRecipeStep_opensStep() {
-    onView(withId(R.id.recipe_recycler_view)).perform(
-        RecyclerViewActions.actionOnItemAtPosition(0, click()));
-
-    onView(withId(R.id.detail_recipe_name)).check(matches(withText("Nutella Pie")));
-    onView(withId(R.id.steps_recycler_view)).perform(
-        RecyclerViewActions.actionOnItemAtPosition(0, click()));
-    onView(withId(R.id.step_short_description)).check(matches(withText("Recipe Introduction")));
-    onView(withId(R.id.step_description)).check(matches(withText("Recipe Introduction")));
-  }
 }
