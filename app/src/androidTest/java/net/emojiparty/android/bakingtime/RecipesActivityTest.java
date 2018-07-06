@@ -38,6 +38,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
     IdlingRegistry.getInstance().unregister(idlingResource);
   }
 
+  // TODO: write this same test but for a tablet
   @Test public void openingApp_LoadsRecipes() {
     onView(withId(R.id.fragment_container)).check(matches(isDisplayed()));
 

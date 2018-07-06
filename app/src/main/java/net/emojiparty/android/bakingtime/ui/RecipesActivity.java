@@ -11,6 +11,8 @@ import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.SimpleIdlingResource;
 import net.emojiparty.android.bakingtime.data.Recipe;
 
+import static net.emojiparty.android.bakingtime.ui.RecipeDetailActivity.RECIPE_ID;
+
 public class RecipesActivity extends AppCompatActivity {
   @Nullable public SimpleIdlingResource idlingResource;
 
@@ -28,9 +30,8 @@ public class RecipesActivity extends AppCompatActivity {
     RecipeListFragment recipeListFragment = new RecipeListFragment();
     recipeListFragment.setOnRecipeClicked(new OnRecipeClicked() {
       @Override public void onClick(Recipe recipe) {
-        //replaceFragment(new RecipeFragment());
         Intent intent = new Intent(RecipesActivity.this, RecipeDetailActivity.class);
-        intent.putExtra("RECIPE_ID", recipe.getId());
+        intent.putExtra(RECIPE_ID, recipe.getId());
         RecipesActivity.this.startActivity(intent);
       }
     });

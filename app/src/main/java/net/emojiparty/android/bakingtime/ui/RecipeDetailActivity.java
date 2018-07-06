@@ -4,21 +4,24 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import net.emojiparty.android.bakingtime.R;
-import net.emojiparty.android.bakingtime.data.Recipe;
-import net.emojiparty.android.bakingtime.data.RecipeRepository;
 
 public class RecipeDetailActivity extends AppCompatActivity {
+  public static final String RECIPE_ID = "RECIPE_ID";
+  private static final int RECIPE_NOT_FOUND = -1;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setupViewModel();
     setContentView(R.layout.activity_recipe_detail);
-    int recipeId = getIntent().getIntExtra("RECIPE_ID", -1);
-    if (recipeId != -1) {
-      Recipe recipe = RecipeRepository.getInstance().getRecipeById(recipeId);
-      RecipeDetailViewModel detailViewModel =
-          ViewModelProviders.of(this).get(RecipeDetailViewModel.class);
-      detailViewModel.loadRecipeById(recipeId);
-    }
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+  }
+
+  private void setupViewModel() {
+    int recipeId = getIntent().getIntExtra(RECIPE_ID, RECIPE_NOT_FOUND);
+    if (recipeId != RECIPE_NOT_FOUND) {
+      ViewModelProviders.of(RecipeDetailActivity.this,
+          new RecipeDetailViewModelFactory(getApplication(), recipeId))
+          .get(RecipeDetailViewModel.class);
+    }
   }
 }

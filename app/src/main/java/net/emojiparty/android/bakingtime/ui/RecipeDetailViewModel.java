@@ -17,18 +17,18 @@ public class RecipeDetailViewModel extends AndroidViewModel {
   private Resources resources;
   private String packageName;
 
-  public RecipeDetailViewModel(@NonNull Application application) {
+  public RecipeDetailViewModel(@NonNull Application application, int recipeId) {
     super(application);
     this.resources = application.getResources();
     this.packageName = application.getPackageName();
+    loadRecipeById(recipeId);
   }
 
   public MutableLiveData<Recipe> getRecipe() {
     return recipe;
   }
 
-  // TODO: make a viewmodel factory that takes this as an arg
-  public void loadRecipeById(int id) {
+  private void loadRecipeById(int id) {
     Recipe recipe = RecipeRepository.getInstance().getRecipeById(id);
     this.recipe.setValue(recipe);
   }
