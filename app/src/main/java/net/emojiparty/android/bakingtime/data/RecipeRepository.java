@@ -3,6 +3,7 @@ package net.emojiparty.android.bakingtime.data;
 import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
+import net.emojiparty.android.bakingtime.SimpleIdlingResource;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,30 +22,36 @@ public class RecipeRepository {
     return instance;
   }
 
-  // TODO how to deal with the idling resource?? maybe just add it to the callback? sux
-  public void getRecipes(final OnRecipesLoadedCallback callback) {
+  // this acts as a simple cache (load recipes from network, then store in
+  // the singleton's instance variable)
+  public void getRecipes(final SimpleIdlingResource idlingResource,
+      final OnRecipesLoadedCallback callback) {
     if (recipes.size() == 0) {
-      setIdlingState(false);
-      RecipeLoader recipeLoader = new RecipeLoader();
-      recipeLoader.loadAllRecipes().enqueue(new Callback<List<Recipe>>() {
-        @Override
-        public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-          if (response.isSuccessful()) {
-            recipes.clear();
-            recipes.addAll(response.body());
-            callback.success(recipes);
-          }
-          setIdlingState(true);
-        }
-
-        @Override public void onFailure(Call<List<Recipe>> call, Throwable t) {
-          Log.i("RecipesViewModel", t.toString());
-          setIdlingState(true);
-        }
-      });
+      loadRecipesFromNetwork(idlingResource, callback);
     } else {
       callback.success(recipes);
     }
+  }
+
+  private void loadRecipesFromNetwork(final SimpleIdlingResource idlingResource,
+      final OnRecipesLoadedCallback callback) {
+    setIdlingState(idlingResource, false);
+    RecipeLoader recipeLoader = new RecipeLoader();
+    recipeLoader.loadAllRecipes().enqueue(new Callback<List<Recipe>>() {
+      @Override public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+        if (response.isSuccessful()) {
+          recipes.clear();
+          recipes.addAll(response.body());
+          callback.success(recipes);
+        }
+        setIdlingState(idlingResource, true);
+      }
+
+      @Override public void onFailure(Call<List<Recipe>> call, Throwable t) {
+        Log.i("RecipesViewModel", t.toString());
+        setIdlingState(idlingResource, true);
+      }
+    });
   }
 
   public Recipe getRecipeById(int id) {
@@ -56,10 +63,10 @@ public class RecipeRepository {
     return null;
   }
 
-  private void setIdlingState(boolean state) {
-    //if (idlingResource != null) {
-    //  idlingResource.setIdleState(state);
-    //}
+  private void setIdlingState(SimpleIdlingResource idlingResource, boolean state) {
+    if (idlingResource != null) {
+      idlingResource.setIdleState(state);
+    }
   }
 
   public interface OnRecipesLoadedCallback {
