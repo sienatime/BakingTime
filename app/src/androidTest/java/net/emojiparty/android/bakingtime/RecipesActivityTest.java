@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
@@ -40,8 +39,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
   // TODO: write this same test but for a tablet
   @Test public void openingApp_LoadsRecipes() {
-    onView(withId(R.id.fragment_container)).check(matches(isDisplayed()));
-
     onView(withId(R.id.recipe_recycler_view)).perform(
         RecyclerViewActions.actionOnItemAtPosition(0, click()));
 

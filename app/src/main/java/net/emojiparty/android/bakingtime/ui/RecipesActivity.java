@@ -1,15 +1,21 @@
 package net.emojiparty.android.bakingtime.ui;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.SimpleIdlingResource;
 import net.emojiparty.android.bakingtime.data.Recipe;
+import net.emojiparty.android.bakingtime.data.RecipeMasterPresenter;
 
 import static net.emojiparty.android.bakingtime.ui.RecipeDetailActivity.RECIPE_ID;
 
@@ -26,24 +32,39 @@ public class RecipesActivity extends AppCompatActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_recipes);
-
-    RecipeListFragment recipeListFragment = new RecipeListFragment();
-    recipeListFragment.setOnRecipeClicked(new OnRecipeClicked() {
-      @Override public void onClick(Recipe recipe) {
-        Intent intent = new Intent(RecipesActivity.this, RecipeDetailActivity.class);
-        intent.putExtra(RECIPE_ID, recipe.getId());
-        RecipesActivity.this.startActivity(intent);
-      }
-    });
-    recipeListFragment.setIdlingResource(getIdlingResource());
-    replaceFragment(recipeListFragment);
+    populateRecipes();
   }
 
-  private void replaceFragment(Fragment fragment) {
-    getSupportFragmentManager().beginTransaction()
-        .add(R.id.fragment_container, fragment)
-        .addToBackStack(fragment.getClass().getName())
-        .commit();
+  private void populateRecipes() {
+    final DataBindingAdapter adapter = new DataBindingAdapter(R.layout.list_item_recipe);
+    RecyclerView recipeRecyclerView = findViewById(R.id.recipe_recycler_view);
+    GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+    recipeRecyclerView.setLayoutManager(layoutManager);
+    recipeRecyclerView.setAdapter(adapter);
+
+    RecipesViewModel allRecipesViewModel = ViewModelProviders.of(this,
+        new RecipesViewModelFactory(this.getApplication(), getIdlingResource()))
+        .get(RecipesViewModel.class);
+    allRecipesViewModel.getList().observe(this, new Observer<List<Recipe>>() {
+      @Override public void onChanged(@Nullable List<Recipe> recipes) {
+        adapter.setItems(mapRecipesToPresenters(recipes));
+      }
+    });
+  }
+
+  private List<RecipeMasterPresenter> mapRecipesToPresenters(List<Recipe> recipes) {
+    List<RecipeMasterPresenter> presenters = new ArrayList<>();
+    for (int i = 0; i < recipes.size(); i++) {
+      Recipe recipe = recipes.get(i);
+      presenters.add(new RecipeMasterPresenter(recipe, new OnRecipeClicked() {
+        @Override public void onClick(Recipe recipe) {
+          Intent intent = new Intent(RecipesActivity.this, RecipeDetailActivity.class);
+          intent.putExtra(RECIPE_ID, recipe.getId());
+          RecipesActivity.this.startActivity(intent);
+        }
+      }));
+    }
+    return presenters;
   }
 
   public interface OnRecipeClicked {
