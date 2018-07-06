@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import net.emojiparty.android.bakingtime.R;
-import net.emojiparty.android.bakingtime.data.Step;
 
 public class RecipeDetailActivity extends AppCompatActivity {
   public static final String RECIPE_ID = "RECIPE_ID";
@@ -19,7 +18,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     if (findViewById(R.id.fragment_container) != null) {
       RecipeFragment recipeFragment = new RecipeFragment();
       recipeFragment.setOnStepClicked(new OnStepClicked() {
-        @Override public void onClick(Step step) {
+        @Override public void onClick() {
           replaceFragment(new RecipeStepFragment());
         }
       });
@@ -44,6 +43,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
   }
 
   public interface OnStepClicked {
-    void onClick(Step step);
+    void onClick();
   }
 }

@@ -54,15 +54,17 @@ public class RecipesActivity extends AppCompatActivity {
 
   private List<RecipeMasterPresenter> mapRecipesToPresenters(List<Recipe> recipes) {
     List<RecipeMasterPresenter> presenters = new ArrayList<>();
+    OnRecipeClicked clickForRecipe = new OnRecipeClicked() {
+      @Override public void onClick(Recipe recipe) {
+        Intent intent = new Intent(RecipesActivity.this, RecipeDetailActivity.class);
+        intent.putExtra(RECIPE_ID, recipe.getId());
+        RecipesActivity.this.startActivity(intent);
+      }
+    };
+
     for (int i = 0; i < recipes.size(); i++) {
       Recipe recipe = recipes.get(i);
-      presenters.add(new RecipeMasterPresenter(recipe, new OnRecipeClicked() {
-        @Override public void onClick(Recipe recipe) {
-          Intent intent = new Intent(RecipesActivity.this, RecipeDetailActivity.class);
-          intent.putExtra(RECIPE_ID, recipe.getId());
-          RecipesActivity.this.startActivity(intent);
-        }
-      }));
+      presenters.add(new RecipeMasterPresenter(recipe, clickForRecipe));
     }
     return presenters;
   }

@@ -13,9 +13,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import java.util.ArrayList;
+import java.util.List;
 import net.emojiparty.android.bakingtime.BR;
 import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.data.Recipe;
+import net.emojiparty.android.bakingtime.data.Step;
+import net.emojiparty.android.bakingtime.data.StepPresenter;
 
 public class RecipeFragment extends Fragment {
   private RecipeDetailViewModel detailViewModel;
@@ -52,8 +56,17 @@ public class RecipeFragment extends Fragment {
 
     detailViewModel.getRecipe().observe(this, new Observer<Recipe>() {
       @Override public void onChanged(@Nullable Recipe recipe) {
-        adapter.setItems(recipe.getSteps());
+        adapter.setItems(mapStepsToPresenters(recipe.getSteps()));
       }
     });
+  }
+
+  private List<StepPresenter> mapStepsToPresenters(List<Step> steps) {
+    List<StepPresenter> presenters = new ArrayList<>();
+    for (int i = 0; i < steps.size(); i++) {
+      Step step = steps.get(i);
+      presenters.add(new StepPresenter(step, detailViewModel, onStepClicked));
+    }
+    return presenters;
   }
 }

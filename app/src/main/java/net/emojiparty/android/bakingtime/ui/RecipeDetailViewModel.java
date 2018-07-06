@@ -10,10 +10,12 @@ import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.data.Ingredient;
 import net.emojiparty.android.bakingtime.data.Recipe;
 import net.emojiparty.android.bakingtime.data.RecipeRepository;
+import net.emojiparty.android.bakingtime.data.Step;
 
 // https://developer.android.com/topic/libraries/architecture/viewmodel#sharing
 public class RecipeDetailViewModel extends AndroidViewModel {
   private MutableLiveData<Recipe> recipe = new MutableLiveData<>();
+  private MutableLiveData<Step> selectedStep = new MutableLiveData<>();
   private Resources resources;
   private String packageName;
 
@@ -26,6 +28,14 @@ public class RecipeDetailViewModel extends AndroidViewModel {
 
   public MutableLiveData<Recipe> getRecipe() {
     return recipe;
+  }
+
+  public MutableLiveData<Step> getSelectedStep() {
+    return selectedStep;
+  }
+
+  public void setSelectedStep(Step selectedStep) {
+    this.selectedStep.setValue(selectedStep);
   }
 
   private void loadRecipeById(int id) {
