@@ -9,10 +9,9 @@
     android:focusableInTouchMode="true"
     >
 
-  <fragment
-      android:id="@+id/master_fragment"
-      android:name="net.emojiparty.android.bakingtime.ui.RecipeFragment"
+  <FrameLayout
+      android:id="@+id/fragment_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+      android:layout_height="match_parent" />
 
 </LinearLayout>

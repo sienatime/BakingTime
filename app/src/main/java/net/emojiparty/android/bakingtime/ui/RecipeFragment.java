@@ -20,6 +20,11 @@ import net.emojiparty.android.bakingtime.data.Recipe;
 public class RecipeFragment extends Fragment {
   private RecipeDetailViewModel detailViewModel;
   private View root;
+  private RecipeDetailActivity.OnStepClicked onStepClicked;
+
+  public void setOnStepClicked(RecipeDetailActivity.OnStepClicked onStepClicked) {
+    this.onStepClicked = onStepClicked;
+  }
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
