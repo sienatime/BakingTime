@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import net.emojiparty.android.bakingtime.BR;
 import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.data.Step;
+import net.emojiparty.android.bakingtime.data.StepPresenter;
 
 public class RecipeStepFragment extends Fragment {
   private RecipeDetailViewModel detailViewModel;
@@ -36,7 +37,8 @@ public class RecipeStepFragment extends Fragment {
     binding.setLifecycleOwner(activity);
     detailViewModel.getSelectedStep().observe(activity, new Observer<Step>() {
       @Override public void onChanged(@Nullable Step step) {
-        binding.setVariable(BR.presenter, step);
+        StepPresenter stepPresenter = new StepPresenter(detailViewModel);
+        binding.setVariable(BR.presenter, stepPresenter);
       }
     });
   }

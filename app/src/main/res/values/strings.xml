@@ -5,6 +5,8 @@
   <string name="ingredient_format_no_measure">%1$s %2$s</string>
   <string name="ingredients">Ingredients</string>
   <string name="steps">Steps</string>
+  <string name="previous">Previous Step</string>
+  <string name="next">Next Step</string>
 
   <plurals name="CUP">
     <item quantity="one">cup</item>

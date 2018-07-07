@@ -19,7 +19,7 @@ import net.emojiparty.android.bakingtime.BR;
 import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.data.Recipe;
 import net.emojiparty.android.bakingtime.data.Step;
-import net.emojiparty.android.bakingtime.data.StepPresenter;
+import net.emojiparty.android.bakingtime.data.StepInListPresenter;
 
 public class RecipeFragment extends Fragment {
   private RecipeDetailViewModel detailViewModel;
@@ -61,11 +61,11 @@ public class RecipeFragment extends Fragment {
     });
   }
 
-  private List<StepPresenter> mapStepsToPresenters(List<Step> steps) {
-    List<StepPresenter> presenters = new ArrayList<>();
+  private List<StepInListPresenter> mapStepsToPresenters(List<Step> steps) {
+    List<StepInListPresenter> presenters = new ArrayList<>();
     for (int i = 0; i < steps.size(); i++) {
       Step step = steps.get(i);
-      presenters.add(new StepPresenter(step, detailViewModel, onStepClicked));
+      presenters.add(new StepInListPresenter(step, detailViewModel, onStepClicked));
     }
     return presenters;
   }

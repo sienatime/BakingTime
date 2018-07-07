@@ -1,29 +1,24 @@
 package net.emojiparty.android.bakingtime.data;
 
-import android.support.annotation.Nullable;
-import net.emojiparty.android.bakingtime.ui.RecipeDetailActivity;
+import android.util.Log;
 import net.emojiparty.android.bakingtime.ui.RecipeDetailViewModel;
 
 public class StepPresenter {
-  private Step step;
   private RecipeDetailViewModel viewModel;
-  @Nullable private RecipeDetailActivity.OnStepClicked onStepClicked;
 
-  public StepPresenter(Step step, RecipeDetailViewModel viewModel,
-      RecipeDetailActivity.OnStepClicked onStepClicked) {
-    this.step = step;
+  public StepPresenter(RecipeDetailViewModel viewModel) {
     this.viewModel = viewModel;
-    this.onStepClicked = onStepClicked;
   }
 
-  public Step getStep() {
-    return step;
+  public RecipeDetailViewModel getViewModel() {
+    return viewModel;
   }
 
-  public void onStepClicked() {
-    viewModel.setSelectedStep(step);
-    if (onStepClicked != null) {
-      onStepClicked.onClick();
-    }
+  public void onNextStepClicked() {
+    viewModel.setSelectedStep(viewModel.getNextStep().getValue());
+  }
+
+  public void onPreviousStepClicked() {
+    viewModel.setSelectedStep(viewModel.getPreviousStep().getValue());
   }
 }
