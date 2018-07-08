@@ -39,6 +39,8 @@ dependencies {
   implementation "android.arch.lifecycle:extensions:$lifecycle_version"
   annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 
+  implementation 'com.google.android.exoplayer:exoplayer:r2.2.0'
+
   // Testing-only dependencies
   testImplementation 'junit:junit:4.12'
   def espresso_version = "3.0.2"

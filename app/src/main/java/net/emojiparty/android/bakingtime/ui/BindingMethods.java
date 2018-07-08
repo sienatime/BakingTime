@@ -22,6 +22,15 @@ public class BindingMethods {
   }
 
   @BindingAdapter({"isVisible"})
+  public static void setVisibility(View view, String string) {
+    if (string != null && !string.equals("")) {
+      view.setVisibility(View.VISIBLE);
+    } else {
+      view.setVisibility(View.INVISIBLE);
+    }
+  }
+
+  @BindingAdapter({"isVisible"})
   public static void setVisibility(View view, Object object) {
     if (object != null) {
       view.setVisibility(View.VISIBLE);
