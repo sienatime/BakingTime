@@ -54,12 +54,15 @@ public class RecipeStepFragment extends Fragment {
       @Override public void onChanged(@Nullable Step step) {
         StepPresenter stepPresenter = new StepPresenter(detailViewModel);
         binding.setVariable(BR.presenter, stepPresenter);
-        initializePlayer(Uri.parse(step.getVideoURL()));
+        if (step.getVideoURL() != null && !step.getVideoURL().equals("")) {
+          initializePlayer(step);
+        }
       }
     });
   }
 
-  private void initializePlayer(Uri videoUri) {
+  private void initializePlayer(Step step) {
+
     Context context = getContext();
     String userAgent = Util.getUserAgent(context, "BakingTime");
 
@@ -71,6 +74,7 @@ public class RecipeStepFragment extends Fragment {
     }
 
     // but this needs to be refreshed with the new videoUri when the step has changed
+    Uri videoUri = Uri.parse(step.getVideoURL());
     MediaSource mediaSource =
         new ExtractorMediaSource(videoUri, new DefaultDataSourceFactory(context, userAgent),
             new DefaultExtractorsFactory(), null, null);

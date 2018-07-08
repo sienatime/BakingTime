@@ -10,7 +10,7 @@ import net.emojiparty.android.bakingtime.R;
 public class BindingMethods {
   @BindingAdapter({"imageUrl"})
   public static void loadImageFromUrl(ImageView view, String url) {
-    if (!url.equals("")) {
+    if (url != null && !url.equals("")) {
       Picasso.get()
           .load(url)
           .placeholder(R.color.colorPrimary)
