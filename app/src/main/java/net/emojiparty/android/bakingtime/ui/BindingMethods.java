@@ -11,6 +11,7 @@ public class BindingMethods {
   @BindingAdapter({"imageUrl"})
   public static void loadImageFromUrl(ImageView view, String url) {
     if (url != null && !url.equals("")) {
+      view.setVisibility(View.VISIBLE);
       Picasso.get()
           .load(url)
           .placeholder(R.color.colorPrimary)

@@ -62,7 +62,6 @@ public class RecipeStepFragment extends Fragment {
   }
 
   private void initializePlayer(Step step) {
-
     Context context = getContext();
     String userAgent = Util.getUserAgent(context, "BakingTime");
 
@@ -78,14 +77,16 @@ public class RecipeStepFragment extends Fragment {
     MediaSource mediaSource =
         new ExtractorMediaSource(videoUri, new DefaultDataSourceFactory(context, userAgent),
             new DefaultExtractorsFactory(), null, null);
-    exoPlayer.prepare(mediaSource);
     exoPlayer.setPlayWhenReady(true);
+    exoPlayer.prepare(mediaSource);
   }
 
   private void releasePlayer() {
-    exoPlayer.stop();
-    exoPlayer.release();
-    exoPlayer = null;
+    if (exoPlayer != null) {
+      exoPlayer.stop();
+      exoPlayer.release();
+      exoPlayer = null;
+    }
   }
 
   @Override public void onDestroy() {

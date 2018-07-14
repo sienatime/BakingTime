@@ -60,12 +60,15 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         imageUrl="@{presenter.viewModel.selectedStep.thumbnailURL}"
-        app:layout_constraintBottom_toTopOf="@+id/previous"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/step_description"
+        app:layout_constraintBottom_toTopOf="@+id/previous"
+        android:scaleType="centerCrop"
         />
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
@@ -76,9 +79,8 @@
         android:layout_marginTop="16dp"
         isVisible="@{presenter.viewModel.selectedStep.videoURL}"
         app:layout_constraintBottom_toTopOf="@+id/previous"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/step_description"
         />
 
