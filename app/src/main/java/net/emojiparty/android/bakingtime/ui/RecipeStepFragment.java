@@ -50,9 +50,17 @@ public class RecipeStepFragment extends Fragment {
     FragmentActivity activity = getActivity();
     detailViewModel = ViewModelProviders.of(activity).get(RecipeDetailViewModel.class);
     binding.setLifecycleOwner(activity);
+    final StepPresenter.OnStepChanged onStepChanged = new StepPresenter.OnStepChanged() {
+      @Override public void callback() {
+        if (exoPlayer != null) {
+          exoPlayer.setPlayWhenReady(false);
+          exoPlayer.stop();
+        }
+      }
+    };
     detailViewModel.getSelectedStep().observe(activity, new Observer<Step>() {
       @Override public void onChanged(@Nullable Step step) {
-        StepPresenter stepPresenter = new StepPresenter(detailViewModel);
+        StepPresenter stepPresenter = new StepPresenter(detailViewModel, onStepChanged);
         binding.setVariable(BR.presenter, stepPresenter);
         if (step.getVideoURL() != null && !step.getVideoURL().equals("")) {
           initializePlayer(step);
