@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -126,6 +127,16 @@ import static org.hamcrest.CoreMatchers.not;
   // note this test does not pass on tablets, which is okay in theory
   // but it would be nice to test this behavior differently for phones and tablets...
   @Test public void stepBackButton_goesToRecipe() {
+    onView(withId(R.id.steps_recycler_view)).perform(
+        RecyclerViewActions.actionOnItemAtPosition(0, click()));
+    onView(withId(R.id.step_short_description)).check(matches(withText("Recipe Introduction")));
+
+    Espresso.pressBack();
+
+    onView(withId(R.id.steps_recycler_view)).check(matches(isDisplayed()));
+  }
+
+  @Test public void stepNavigatingUp_goesToRecipe() {
     onView(withId(R.id.steps_recycler_view)).perform(
         RecyclerViewActions.actionOnItemAtPosition(0, click()));
     onView(withId(R.id.step_short_description)).check(matches(withText("Recipe Introduction")));

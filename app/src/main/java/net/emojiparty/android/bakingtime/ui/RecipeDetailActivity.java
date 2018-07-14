@@ -65,4 +65,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
   private boolean stepFragmentShowing() {
     return getSupportFragmentManager().getBackStackEntryCount() == 2;
   }
+
+  @Override public void onBackPressed() {
+    if (stepFragmentShowing()) {
+      getSupportFragmentManager().popBackStack();
+    } else {
+      this.finish();
+    }
+  }
 }
