@@ -17,7 +17,7 @@ public class BindingMethods {
           .error(R.color.colorAccent)
           .into(view);
     } else {
-      view.setVisibility(View.INVISIBLE);
+      view.setVisibility(View.GONE);
     }
   }
 
