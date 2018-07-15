@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -46,6 +47,23 @@ public class RecipeStepFragment extends Fragment {
     return root;
   }
 
+  // https://stackoverflow.com/questions/45481775/exoplayer-restore-state-when-resumed
+  @Override public void onResume() {
+    super.onResume();
+    Long lastPlayedVideoPosition = detailViewModel.getLastPlayedVideoPosition().getValue();
+    if (lastPlayedVideoPosition != null && lastPlayedVideoPosition != C.TIME_UNSET && exoPlayer != null) {
+      exoPlayer.seekTo(lastPlayedVideoPosition);
+    }
+  }
+
+  @Override public void onPause() {
+    super.onPause();
+    if (exoPlayer != null) {
+      detailViewModel.getLastPlayedVideoPosition().setValue(exoPlayer.getCurrentPosition());
+      exoPlayer.stop();
+    }
+  }
+
   private void setupViewModel(final ViewDataBinding binding) {
     FragmentActivity activity = getActivity();
     detailViewModel = ViewModelProviders.of(activity).get(RecipeDetailViewModel.class);
@@ -53,7 +71,6 @@ public class RecipeStepFragment extends Fragment {
     final StepPresenter.OnStepChanged onStepChanged = new StepPresenter.OnStepChanged() {
       @Override public void callback() {
         if (exoPlayer != null) {
-          exoPlayer.setPlayWhenReady(false);
           exoPlayer.stop();
         }
       }
@@ -91,7 +108,6 @@ public class RecipeStepFragment extends Fragment {
 
   private void releasePlayer() {
     if (exoPlayer != null) {
-      exoPlayer.stop();
       exoPlayer.release();
       exoPlayer = null;
     }

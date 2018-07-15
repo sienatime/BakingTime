@@ -19,6 +19,7 @@ public class RecipeDetailViewModel extends AndroidViewModel {
   private MutableLiveData<Step> selectedStep = new MutableLiveData<>();
   private MutableLiveData<Step> nextStep = new MutableLiveData<>();
   private MutableLiveData<Step> previousStep = new MutableLiveData<>();
+  private MutableLiveData<Long> lastPlayedVideoPosition = new MutableLiveData<>();
   private static final int STEP_NOT_FOUND = -1;
   private Resources resources;
   private String packageName;
@@ -44,6 +45,10 @@ public class RecipeDetailViewModel extends AndroidViewModel {
 
   public MutableLiveData<Step> getPreviousStep() {
     return previousStep;
+  }
+
+  public MutableLiveData<Long> getLastPlayedVideoPosition() {
+    return lastPlayedVideoPosition;
   }
 
   public void setSelectedStep(Step selectedStep) {
