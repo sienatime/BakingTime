@@ -18,6 +18,8 @@ import java.util.List;
 import net.emojiparty.android.bakingtime.data.Recipe;
 import net.emojiparty.android.bakingtime.data.RecipeRepository;
 
+import static net.emojiparty.android.bakingtime.data.Recipe.RECIPE_NOT_FOUND;
+
 /**
  * The configuration screen for the {@link BakingAppWidget BakingAppWidget} AppWidget.
  */
@@ -26,7 +28,6 @@ public class BakingAppWidgetConfigureActivity extends Activity {
   private static final String PREFS_NAME = "net.emojiparty.android.bakingtime.BakingAppWidget";
   private static final String PREF_PREFIX_KEY = "appwidget_";
   int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-  private static final int RECIPE_NOT_FOUND = -1;
 
   private Spinner recipeSpinner;
 

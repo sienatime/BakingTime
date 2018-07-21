@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import net.emojiparty.android.bakingtime.R;
+import net.emojiparty.android.bakingtime.data.Recipe;
 
 public class RecipeDetailActivity extends AppCompatActivity {
   public static final String RECIPE_ID = "RECIPE_ID";
-  private static final int RECIPE_NOT_FOUND = -1;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,8 +33,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
   }
 
   private void setupViewModel() {
-    int recipeId = getIntent().getIntExtra(RECIPE_ID, RECIPE_NOT_FOUND);
-    if (recipeId != RECIPE_NOT_FOUND) {
+    int recipeId = getIntent().getIntExtra(RECIPE_ID, Recipe.RECIPE_NOT_FOUND);
+    if (recipeId != Recipe.RECIPE_NOT_FOUND) {
       ViewModelProviders.of(RecipeDetailActivity.this,
           new RecipeDetailViewModelFactory(getApplication(), recipeId))
           .get(RecipeDetailViewModel.class);

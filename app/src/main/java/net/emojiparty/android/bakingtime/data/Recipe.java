@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
+  public static final int RECIPE_NOT_FOUND = -1;
   private int id;
   private String name;
   private List<Ingredient> ingredients = new ArrayList<>();
