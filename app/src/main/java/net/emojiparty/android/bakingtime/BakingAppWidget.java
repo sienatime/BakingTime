@@ -4,8 +4,10 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.widget.RemoteViews;
+import java.util.List;
 import net.emojiparty.android.bakingtime.data.Recipe;
 import net.emojiparty.android.bakingtime.data.RecipeRepository;
+import net.emojiparty.android.bakingtime.ui.IngredientsPresenter;
 
 /**
  * Implementation of App Widget functionality.
@@ -13,22 +15,29 @@ import net.emojiparty.android.bakingtime.data.RecipeRepository;
  */
 public class BakingAppWidget extends AppWidgetProvider {
 
-  static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
+  static void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
+      final int appWidgetId) {
+    final int recipeId = BakingAppWidgetConfigureActivity.loadRecipePref(context, appWidgetId);
+    final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
 
-    int recipeId = BakingAppWidgetConfigureActivity.loadRecipePref(context, appWidgetId);
-    Recipe recipe = RecipeRepository.getInstance().getRecipeById(recipeId);
-
-    RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
-    // on initial load, this will be null
-    if (recipe != null) {
-      views.setTextViewText(R.id.appwidget_text, recipe.getName());
-    }
-
-    // Instruct the widget manager to update the widget
-    appWidgetManager.updateAppWidget(appWidgetId, views);
+    RecipeRepository.getInstance().getRecipes(null, new RecipeRepository.OnRecipesLoadedCallback() {
+      @Override public void success(List<Recipe> recipes) {
+        for (Recipe recipe : recipes) {
+          if (recipeId == recipe.getId()) {
+            views.setTextViewText(R.id.widget_recipe_name, recipe.getName());
+            IngredientsPresenter ingredientsPresenter =
+                new IngredientsPresenter(recipe, context.getResources(), context.getPackageName());
+            views.setTextViewText(R.id.widget_recipe_ingredients,
+                ingredientsPresenter.allIngredients());
+            appWidgetManager.updateAppWidget(appWidgetId, views);
+          }
+        }
+      }
+    });
   }
 
-  @Override public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+  @Override
+  public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
     // There may be multiple widgets active, so update all of them
     for (int appWidgetId : appWidgetIds) {
       updateAppWidget(context, appWidgetManager, appWidgetId);
