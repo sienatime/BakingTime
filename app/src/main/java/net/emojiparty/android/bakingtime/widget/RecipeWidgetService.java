@@ -1,4 +1,4 @@
-package net.emojiparty.android.bakingtime;
+package net.emojiparty.android.bakingtime.widget;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,12 +6,12 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 import java.util.ArrayList;
 import java.util.List;
-import net.emojiparty.android.bakingtime.data.Recipe;
-import net.emojiparty.android.bakingtime.data.RecipeRepository;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
+import net.emojiparty.android.bakingtime.data.network.RecipeRepository;
 import net.emojiparty.android.bakingtime.ui.IngredientsPresenter;
 
-import static net.emojiparty.android.bakingtime.BakingAppWidget.WIDGET_RECIPE_ID;
-import static net.emojiparty.android.bakingtime.data.Recipe.RECIPE_NOT_FOUND;
+import static net.emojiparty.android.bakingtime.widget.BakingAppWidget.WIDGET_RECIPE_ID;
+import static net.emojiparty.android.bakingtime.data.models.Recipe.RECIPE_NOT_FOUND;
 
 public class RecipeWidgetService extends RemoteViewsService {
   @Override public RemoteViewsFactory onGetViewFactory(Intent intent) {

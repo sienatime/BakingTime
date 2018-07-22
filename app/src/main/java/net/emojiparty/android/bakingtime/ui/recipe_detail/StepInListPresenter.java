@@ -1,8 +1,7 @@
-package net.emojiparty.android.bakingtime.data;
+package net.emojiparty.android.bakingtime.ui.recipe_detail;
 
 import android.support.annotation.Nullable;
-import net.emojiparty.android.bakingtime.ui.RecipeDetailActivity;
-import net.emojiparty.android.bakingtime.ui.RecipeDetailViewModel;
+import net.emojiparty.android.bakingtime.data.models.Step;
 
 public class StepInListPresenter {
   private Step step;

@@ -1,13 +1,18 @@
-package net.emojiparty.android.bakingtime;
+package net.emojiparty.android.bakingtime.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 import java.util.List;
-import net.emojiparty.android.bakingtime.data.Recipe;
-import net.emojiparty.android.bakingtime.data.RecipeRepository;
+import net.emojiparty.android.bakingtime.R;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
+import net.emojiparty.android.bakingtime.data.network.RecipeRepository;
+import net.emojiparty.android.bakingtime.ui.recipe_detail.RecipeDetailActivity;
+
+import static net.emojiparty.android.bakingtime.ui.recipe_detail.RecipeDetailActivity.RECIPE_ID;
 
 /**
  * Implementation of App Widget functionality.
@@ -26,10 +31,18 @@ public class BakingAppWidget extends AppWidgetProvider {
         for (Recipe recipe : recipes) {
           if (recipeId == recipe.getId()) {
             views.setTextViewText(R.id.widget_recipe_name, recipe.getName());
-            Intent intent = new Intent(context, RecipeWidgetService.class);
-            intent.putExtra(WIDGET_RECIPE_ID, recipeId);
 
-            views.setRemoteAdapter(R.id.widget_ingredients, intent);
+            Intent remoteViewsIntent = new Intent(context, RecipeWidgetService.class);
+            remoteViewsIntent.putExtra(WIDGET_RECIPE_ID, recipeId);
+            views.setRemoteAdapter(R.id.widget_ingredients, remoteViewsIntent);
+
+            Intent appIntent = new Intent(context, RecipeDetailActivity.class);
+            appIntent.putExtra(RECIPE_ID, recipeId);
+
+            PendingIntent
+                appPendingIntent = PendingIntent.getActivity(context, appWidgetId, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            views.setOnClickPendingIntent(R.id.widget_recipe_name, appPendingIntent);
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
           }

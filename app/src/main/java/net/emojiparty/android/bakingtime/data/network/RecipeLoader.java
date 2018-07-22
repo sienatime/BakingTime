@@ -1,12 +1,7 @@
-package net.emojiparty.android.bakingtime.data;
+package net.emojiparty.android.bakingtime.data.network;
 
-import java.io.IOException;
 import java.util.List;
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -6,7 +6,7 @@
   <data>
     <variable
         name="presenter"
-        type="net.emojiparty.android.bakingtime.data.RecipeMasterPresenter"
+        type="net.emojiparty.android.bakingtime.ui.recipe_list.RecipeMasterPresenter"
         />
   </data>
 

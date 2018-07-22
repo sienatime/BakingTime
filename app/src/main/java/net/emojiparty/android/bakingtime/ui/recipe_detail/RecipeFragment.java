@@ -1,4 +1,4 @@
-package net.emojiparty.android.bakingtime.ui;
+package net.emojiparty.android.bakingtime.ui.recipe_detail;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import net.emojiparty.android.bakingtime.BR;
 import net.emojiparty.android.bakingtime.R;
-import net.emojiparty.android.bakingtime.data.Recipe;
-import net.emojiparty.android.bakingtime.data.Step;
-import net.emojiparty.android.bakingtime.data.StepInListPresenter;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
+import net.emojiparty.android.bakingtime.data.models.Step;
+import net.emojiparty.android.bakingtime.ui.DataBindingAdapter;
 
 public class RecipeFragment extends Fragment {
   private RecipeDetailViewModel detailViewModel;

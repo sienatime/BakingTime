@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.RecipeDetailActivity"
+    tools:context=".ui.recipe_detail.RecipeDetailActivity"
     android:orientation="horizontal"
     android:focusableInTouchMode="true"
     >
 
   <fragment
       android:id="@+id/master_fragment"
-      android:name="net.emojiparty.android.bakingtime.ui.RecipeFragment"
+      android:name="net.emojiparty.android.bakingtime.ui.recipe_detail.RecipeFragment"
       android:layout_weight="1"
       android:layout_width="0dp"
       android:layout_height="match_parent"/>
 
   <fragment
       android:id="@+id/detail_fragment"
-      android:name="net.emojiparty.android.bakingtime.ui.RecipeStepFragment"
+      android:name="net.emojiparty.android.bakingtime.ui.recipe_detail.RecipeStepFragment"
       android:layout_weight="2"
       android:layout_width="0dp"
       android:layout_height="match_parent"/>

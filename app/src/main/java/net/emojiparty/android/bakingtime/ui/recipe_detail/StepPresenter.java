@@ -1,6 +1,4 @@
-package net.emojiparty.android.bakingtime.data;
-
-import net.emojiparty.android.bakingtime.ui.RecipeDetailViewModel;
+package net.emojiparty.android.bakingtime.ui.recipe_detail;
 
 public class StepPresenter {
   private RecipeDetailViewModel viewModel;

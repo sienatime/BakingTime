@@ -8,7 +8,7 @@
   <data>
     <variable
         name="presenter"
-        type="net.emojiparty.android.bakingtime.ui.RecipeDetailViewModel"
+        type="net.emojiparty.android.bakingtime.ui.recipe_detail.RecipeDetailViewModel"
         />
   </data>
 

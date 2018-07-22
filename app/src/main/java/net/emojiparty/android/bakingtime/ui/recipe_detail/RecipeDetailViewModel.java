@@ -1,4 +1,4 @@
-package net.emojiparty.android.bakingtime.ui;
+package net.emojiparty.android.bakingtime.ui.recipe_detail;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -6,9 +6,10 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import java.util.List;
-import net.emojiparty.android.bakingtime.data.Recipe;
-import net.emojiparty.android.bakingtime.data.RecipeRepository;
-import net.emojiparty.android.bakingtime.data.Step;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
+import net.emojiparty.android.bakingtime.data.models.Step;
+import net.emojiparty.android.bakingtime.data.network.RecipeRepository;
+import net.emojiparty.android.bakingtime.ui.IngredientsPresenter;
 
 // https://developer.android.com/topic/libraries/architecture/viewmodel#sharing
 public class RecipeDetailViewModel extends AndroidViewModel {

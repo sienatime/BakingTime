@@ -5,8 +5,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import net.emojiparty.android.bakingtime.R;
-import net.emojiparty.android.bakingtime.data.Ingredient;
-import net.emojiparty.android.bakingtime.data.Recipe;
+import net.emojiparty.android.bakingtime.data.models.Ingredient;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
 
 public class IngredientsPresenter {
   private Recipe recipe;

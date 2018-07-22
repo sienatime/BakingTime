@@ -11,9 +11,9 @@ import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import java.util.ArrayList;
-import net.emojiparty.android.bakingtime.data.Recipe;
-import net.emojiparty.android.bakingtime.data.RecipeRepository;
-import net.emojiparty.android.bakingtime.ui.RecipeDetailActivity;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
+import net.emojiparty.android.bakingtime.data.network.RecipeRepository;
+import net.emojiparty.android.bakingtime.ui.recipe_detail.RecipeDetailActivity;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,7 +26,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static net.emojiparty.android.bakingtime.ui.RecipeDetailActivity.RECIPE_ID;
+import static net.emojiparty.android.bakingtime.ui.recipe_detail.RecipeDetailActivity.RECIPE_ID;
 import static org.hamcrest.CoreMatchers.not;
 
 /**

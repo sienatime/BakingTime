@@ -2,9 +2,9 @@ package net.emojiparty.android.bakingtime;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.emojiparty.android.bakingtime.data.Ingredient;
-import net.emojiparty.android.bakingtime.data.Recipe;
-import net.emojiparty.android.bakingtime.data.Step;
+import net.emojiparty.android.bakingtime.data.models.Ingredient;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
+import net.emojiparty.android.bakingtime.data.models.Step;
 
 public class TestRecipeFactory {
   public static Recipe nutellaPie() {

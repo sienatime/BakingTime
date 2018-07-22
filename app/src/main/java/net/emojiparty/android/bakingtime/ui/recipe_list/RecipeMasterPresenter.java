@@ -1,7 +1,7 @@
-package net.emojiparty.android.bakingtime.data;
+package net.emojiparty.android.bakingtime.ui.recipe_list;
 
 import android.support.annotation.Nullable;
-import net.emojiparty.android.bakingtime.ui.RecipesActivity;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
 
 public class RecipeMasterPresenter {
   private Recipe recipe;

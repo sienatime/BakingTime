@@ -1,4 +1,4 @@
-package net.emojiparty.android.bakingtime.ui;
+package net.emojiparty.android.bakingtime.ui.recipe_detail;
 
 import android.app.Application;
 import android.arch.lifecycle.ViewModel;

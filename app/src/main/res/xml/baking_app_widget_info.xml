@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="net.emojiparty.android.bakingtime.BakingAppWidgetConfigureActivity"
+    android:configure="net.emojiparty.android.bakingtime.widget.BakingAppWidgetConfigureActivity"
     android:initialKeyguardLayout="@layout/baking_app_widget"
     android:initialLayout="@layout/baking_app_widget"
     android:minHeight="110dp"

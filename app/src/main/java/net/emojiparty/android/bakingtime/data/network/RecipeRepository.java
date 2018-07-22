@@ -1,10 +1,10 @@
-package net.emojiparty.android.bakingtime.data;
+package net.emojiparty.android.bakingtime.data.network;
 
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import net.emojiparty.android.bakingtime.SimpleIdlingResource;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +54,6 @@ public class RecipeRepository {
       }
 
       @Override public void onFailure(Call<List<Recipe>> call, Throwable t) {
-        Log.i("RecipesViewModel", t.toString());
         setIdlingState(idlingResource, true);
       }
     });

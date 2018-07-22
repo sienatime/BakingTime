@@ -1,22 +1,24 @@
-package net.emojiparty.android.bakingtime.ui;
+package net.emojiparty.android.bakingtime.ui.recipe_detail;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import net.emojiparty.android.bakingtime.R;
-import net.emojiparty.android.bakingtime.data.Recipe;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
 
 public class RecipeDetailActivity extends AppCompatActivity {
   public static final String RECIPE_ID = "RECIPE_ID";
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Log.i("MyLifecycle", "Activity onCreate");
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    setupViewModel();
     setContentView(R.layout.activity_recipe_detail);
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    setupViewModel();
     transactRecipeFragment();
   }
 

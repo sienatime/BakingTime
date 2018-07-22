@@ -1,4 +1,4 @@
-package net.emojiparty.android.bakingtime.data;
+package net.emojiparty.android.bakingtime.data.models;
 
 public class Step {
   private int id;

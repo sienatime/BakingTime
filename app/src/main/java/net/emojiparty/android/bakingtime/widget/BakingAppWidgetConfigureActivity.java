@@ -1,4 +1,4 @@
-package net.emojiparty.android.bakingtime;
+package net.emojiparty.android.bakingtime.widget;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -15,20 +15,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.List;
-import net.emojiparty.android.bakingtime.data.Recipe;
-import net.emojiparty.android.bakingtime.data.RecipeRepository;
+import net.emojiparty.android.bakingtime.R;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
+import net.emojiparty.android.bakingtime.data.network.RecipeRepository;
 
-import static net.emojiparty.android.bakingtime.data.Recipe.RECIPE_NOT_FOUND;
+import static net.emojiparty.android.bakingtime.data.models.Recipe.RECIPE_NOT_FOUND;
 
 /**
  * The configuration screen for the {@link BakingAppWidget BakingAppWidget} AppWidget.
  */
 public class BakingAppWidgetConfigureActivity extends Activity {
 
-  private static final String PREFS_NAME = "net.emojiparty.android.bakingtime.BakingAppWidget";
+  private static final String PREFS_NAME = "net.emojiparty.android.bakingtime.widget.BakingAppWidget";
   private static final String PREF_PREFIX_KEY = "appwidget_";
-  int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
+  private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
   private Spinner recipeSpinner;
 
   public BakingAppWidgetConfigureActivity() {
@@ -70,12 +70,12 @@ public class BakingAppWidgetConfigureActivity extends Activity {
     Intent intent = getIntent();
     Bundle extras = intent.getExtras();
     if (extras != null) {
-      mAppWidgetId =
+      appWidgetId =
           extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
     }
 
     // If this activity was started with an intent without an app widget ID, finish with an error.
-    if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+    if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
       finish();
       return;
     }
@@ -95,7 +95,7 @@ public class BakingAppWidgetConfigureActivity extends Activity {
   }
 
   private void setPreviousSelection(List<Recipe> recipes) {
-    int previouslySavedId = loadRecipePref(BakingAppWidgetConfigureActivity.this, mAppWidgetId);
+    int previouslySavedId = loadRecipePref(BakingAppWidgetConfigureActivity.this, appWidgetId);
     if (previouslySavedId != RECIPE_NOT_FOUND) {
       for (int i = 0; i < recipes.size(); i++) {
         Recipe recipe = recipes.get(i);
@@ -112,15 +112,15 @@ public class BakingAppWidgetConfigureActivity extends Activity {
       final Context context = BakingAppWidgetConfigureActivity.this;
 
       Recipe recipe = (Recipe) recipeSpinner.getSelectedItem();
-      saveRecipePref(context, mAppWidgetId, recipe.getId());
+      saveRecipePref(context, appWidgetId, recipe.getId());
 
       // It is the responsibility of the configuration activity to update the app widget
       AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-      BakingAppWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+      BakingAppWidget.updateAppWidget(context, appWidgetManager, appWidgetId);
 
       // Make sure we pass back the original appWidgetId
       Intent resultValue = new Intent();
-      resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+      resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
       setResult(RESULT_OK, resultValue);
       finish();
     }

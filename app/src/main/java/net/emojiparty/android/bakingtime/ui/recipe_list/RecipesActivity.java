@@ -1,4 +1,4 @@
-package net.emojiparty.android.bakingtime.ui;
+package net.emojiparty.android.bakingtime.ui.recipe_list;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -14,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import net.emojiparty.android.bakingtime.R;
 import net.emojiparty.android.bakingtime.SimpleIdlingResource;
-import net.emojiparty.android.bakingtime.data.Recipe;
-import net.emojiparty.android.bakingtime.data.RecipeMasterPresenter;
+import net.emojiparty.android.bakingtime.data.models.Recipe;
+import net.emojiparty.android.bakingtime.ui.DataBindingAdapter;
+import net.emojiparty.android.bakingtime.ui.recipe_detail.RecipeDetailActivity;
 
-import static net.emojiparty.android.bakingtime.ui.RecipeDetailActivity.RECIPE_ID;
+import static net.emojiparty.android.bakingtime.ui.recipe_detail.RecipeDetailActivity.RECIPE_ID;
 
 public class RecipesActivity extends AppCompatActivity {
   @Nullable public SimpleIdlingResource idlingResource;
