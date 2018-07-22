@@ -65,7 +65,7 @@ import static org.hamcrest.CoreMatchers.not;
         }
       };
 
-  @Before public void assertAcitivtyLoadedWithRecipe() {
+  @Before public void assertActivityLoadedWithRecipe() {
     onView(withId(R.id.detail_recipe_name)).check(matches(withText("Nutella Pie")));
   }
 
@@ -124,8 +124,7 @@ import static org.hamcrest.CoreMatchers.not;
     onView(withId(R.id.step_short_description)).check(matches(withText("Starting prep")));
   }
 
-  // note this test does not pass on tablets, which is okay in theory
-  // but it would be nice to test this behavior differently for phones and tablets...
+  // phone only, does not pass on tablet since behavior is different
   @Test public void stepBackButton_goesToRecipe() {
     onView(withId(R.id.steps_recycler_view)).perform(
         RecyclerViewActions.actionOnItemAtPosition(0, click()));
@@ -136,6 +135,7 @@ import static org.hamcrest.CoreMatchers.not;
     onView(withId(R.id.steps_recycler_view)).check(matches(isDisplayed()));
   }
 
+  // phone only, does not pass on tablet since behavior is different
   @Test public void stepNavigatingUp_goesToRecipe() {
     onView(withId(R.id.steps_recycler_view)).perform(
         RecyclerViewActions.actionOnItemAtPosition(0, click()));

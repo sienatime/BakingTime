@@ -13,12 +13,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    setContentView(R.layout.activity_recipe_detail);
-  }
-
-  @Override protected void onResume() {
-    super.onResume();
     setupViewModel();
+    setContentView(R.layout.activity_recipe_detail);
     transactRecipeFragment();
   }
 

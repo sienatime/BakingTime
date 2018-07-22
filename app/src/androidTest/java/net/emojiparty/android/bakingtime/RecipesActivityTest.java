@@ -47,6 +47,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
     onView(withId(R.id.detail_recipe_name)).check(matches(withText("Nutella Pie")));
   }
 
+  // phone only, does not pass on tablet since behavior is different
   @Test public void backButton_goesAllTheWay() {
     onView(withId(R.id.recipe_recycler_view)).perform(
         RecyclerViewActions.actionOnItemAtPosition(0, click()));
@@ -63,6 +64,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
     onView(withId(R.id.recipe_recycler_view)).check(matches(isDisplayed()));
   }
 
+  // phone only, does not pass on tablet since behavior is different
   @Test public void navigateUp_goesAllTheWay() {
     onView(withId(R.id.recipe_recycler_view)).perform(
         RecyclerViewActions.actionOnItemAtPosition(0, click()));
