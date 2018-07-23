@@ -31,35 +31,67 @@ import net.emojiparty.android.bakingtime.data.models.Step;
 
 public class RecipeStepFragment extends Fragment {
   private RecipeDetailViewModel detailViewModel;
-  private View root;
+  private ViewDataBinding binding;
   private SimpleExoPlayerView playerView;
   private SimpleExoPlayer exoPlayer;
+  private static final String LAST_PLAYED_POSITION = "LAST_PLAYED_POSITION";
+  private long lastPlayedPosition;
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    ViewDataBinding binding =
+    binding =
         DataBindingUtil.inflate(inflater, R.layout.fragment_step, container, false);
-    root = binding.getRoot();
+    View root = binding.getRoot();
     playerView = root.findViewById(R.id.video_player);
-    setupViewModel(binding);
+    if (savedInstanceState != null) {
+      lastPlayedPosition = savedInstanceState.getLong(LAST_PLAYED_POSITION, C.TIME_UNSET);
+    }
     return root;
   }
 
-  // https://stackoverflow.com/questions/45481775/exoplayer-restore-state-when-resumed
-  @Override public void onResume() {
-    super.onResume();
-    Long lastPlayedVideoPosition = detailViewModel.getLastPlayedVideoPosition().getValue();
-    if (lastPlayedVideoPosition != null && lastPlayedVideoPosition != C.TIME_UNSET && exoPlayer != null) {
-      exoPlayer.seekTo(lastPlayedVideoPosition);
+  @Override
+  public void onStart() {
+    super.onStart();
+    if (Util.SDK_INT > 23) {
+      initializePlayer();
+      setupViewModel(binding);
     }
   }
 
-  @Override public void onPause() {
+  @Override
+  public void onResume() {
+    super.onResume();
+    if ((Util.SDK_INT <= 23 || exoPlayer == null)) {
+      initializePlayer();
+      setupViewModel(binding);
+    }
+
+    if (lastPlayedPosition != C.TIME_UNSET && exoPlayer != null) {
+      exoPlayer.seekTo(lastPlayedPosition);
+    }
+  }
+
+  @Override
+  public void onPause() {
     super.onPause();
+    if (Util.SDK_INT <= 23) {
+      releasePlayer();
+    }
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    if (Util.SDK_INT > 23) {
+      releasePlayer();
+    }
+  }
+
+  @Override public void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
     if (exoPlayer != null) {
-      detailViewModel.getLastPlayedVideoPosition().setValue(exoPlayer.getCurrentPosition());
-      exoPlayer.stop();
+      outState.putLong(LAST_PLAYED_POSITION, exoPlayer.getCurrentPosition());
     }
   }
 
@@ -79,24 +111,25 @@ public class RecipeStepFragment extends Fragment {
         StepPresenter stepPresenter = new StepPresenter(detailViewModel, onStepChanged);
         binding.setVariable(BR.presenter, stepPresenter);
         if (step.getVideoURL() != null && !step.getVideoURL().equals("")) {
-          initializePlayer(step);
+          setUriInPlayer(step);
         }
       }
     });
   }
 
-  private void initializePlayer(Step step) {
-    Context context = getContext();
-    String userAgent = Util.getUserAgent(context, "BakingTime");
-
-    // only need to do this once per fragment
+  private void initializePlayer() {
     if (exoPlayer == null) {
-      exoPlayer = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector(),
+      exoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), new DefaultTrackSelector(),
           new DefaultLoadControl());
       playerView.setPlayer(exoPlayer);
     }
+  }
 
-    // but this needs to be refreshed with the new videoUri when the step has changed
+  private void setUriInPlayer(Step step) {
+    Context context = getContext();
+
+    String userAgent = Util.getUserAgent(context, "BakingTime");
+
     Uri videoUri = Uri.parse(step.getVideoURL());
     MediaSource mediaSource =
         new ExtractorMediaSource(videoUri, new DefaultDataSourceFactory(context, userAgent),
@@ -110,10 +143,5 @@ public class RecipeStepFragment extends Fragment {
       exoPlayer.release();
       exoPlayer = null;
     }
-  }
-
-  @Override public void onDestroy() {
-    super.onDestroy();
-    releasePlayer();
   }
 }
