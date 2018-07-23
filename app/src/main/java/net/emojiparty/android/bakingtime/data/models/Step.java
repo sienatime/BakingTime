@@ -6,6 +6,7 @@ public class Step {
   private String description;
   private String videoURL;
   private String thumbnailURL;
+  public static final int STEP_NOT_FOUND = -1;
 
   public Step() {
   }

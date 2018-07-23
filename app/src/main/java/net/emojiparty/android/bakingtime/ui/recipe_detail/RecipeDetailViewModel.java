@@ -33,6 +33,10 @@ public class RecipeDetailViewModel extends AndroidViewModel {
     return recipe;
   }
 
+  public void setRecipe(Recipe recipe) {
+    this.recipe.setValue(recipe);
+  }
+
   public MutableLiveData<Step> getSelectedStep() {
     return selectedStep;
   }
@@ -86,8 +90,11 @@ public class RecipeDetailViewModel extends AndroidViewModel {
   }
 
   private void loadRecipeById(int id) {
-    Recipe recipe = RecipeRepository.getInstance().getRecipeById(id);
-    this.recipe.setValue(recipe);
+    RecipeRepository.getInstance().getRecipeById(id, new RecipeRepository.OnRecipeLoadedCallback() {
+      @Override public void success(Recipe recipe) {
+        setRecipe(recipe);
+      }
+    });
   }
 
   // seems weird to pass the livedata? but otherwise it doesn't update

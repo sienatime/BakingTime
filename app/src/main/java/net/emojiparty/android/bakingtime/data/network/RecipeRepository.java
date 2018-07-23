@@ -59,13 +59,16 @@ public class RecipeRepository {
     });
   }
 
-  public Recipe getRecipeById(int id) {
-    for (Recipe recipe : recipes) {
-      if (recipe.getId() == id) {
-        return recipe;
+  public void getRecipeById(final int id, final OnRecipeLoadedCallback callback) {
+    getRecipes(null, new OnRecipesLoadedCallback() {
+      @Override public void success(List<Recipe> recipes) {
+        for (Recipe recipe : recipes) {
+          if (recipe.getId() == id) {
+            callback.success(recipe);
+          }
+        }
       }
-    }
-    return null;
+    });
   }
 
   private void setIdlingState(SimpleIdlingResource idlingResource, boolean state) {
@@ -76,5 +79,9 @@ public class RecipeRepository {
 
   public interface OnRecipesLoadedCallback {
     void success(List<Recipe> recipes);
+  }
+
+  public interface OnRecipeLoadedCallback {
+    void success(Recipe recipe);
   }
 }

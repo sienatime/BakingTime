@@ -34,12 +34,15 @@ class RecipeViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   @Override public void onDataSetChanged() {
-    Recipe recipe = RecipeRepository.getInstance().getRecipeById(recipeId);
-    if (recipe != null) {
-      IngredientsPresenter ingredientsPresenter =
-          new IngredientsPresenter(recipe, context.getResources(), context.getPackageName());
-      ingredients = ingredientsPresenter.formattedIngredients();
-    }
+    RecipeRepository.getInstance().getRecipeById(recipeId, new RecipeRepository.OnRecipeLoadedCallback() {
+      @Override public void success(Recipe recipe) {
+        if (recipe != null) {
+          IngredientsPresenter ingredientsPresenter =
+              new IngredientsPresenter(recipe, context.getResources(), context.getPackageName());
+          ingredients = ingredientsPresenter.formattedIngredients();
+        }
+      }
+    });
   }
 
   @Override public void onDestroy() {
